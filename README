@@ -1,0 +1,44 @@
+libdice is a small library used for parsing dice expression and rolling dice.
+It is mainly suitable for small projects that wish to support pen and paper
+style dice syntax.
+
+Features:
+
+  o Written in clean C
+  o Easy API as well as advanced API
+  o Solid and reliable RNG
+  o Unit tests
+
+Dice syntax support:
+
+  o Variable sides
+  o Variable amount
+
+Requirements:
+
+  o arc4random_uniform (or libbsd on non-BSDs)
+  o cmocka (for unit tests)
+  o bison
+  o flex
+
+Compilation
+
+  $ ./configure --prefix=/usr
+  $ make
+  $ doas make install
+
+Usage:
+
+  The functions ``dice_simple`` and ``dice_parse`` create a new ``dice_t``
+  object which can be used in conjunction with ``dice_roll`` and
+  ``dice_evaluate`` to generate random numbers. ``dice_free`` must be used
+  to cleanup a created ``dice_t`` object.
+
+
+  dice_t d20 = dice_simple(1, 20);
+  int64_t res = dice_roll(d20);
+  dice_free(d20);
+
+Authors:
+
+  Florian Stinglmayr <florian@n0la.org>
