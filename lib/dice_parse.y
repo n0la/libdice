@@ -1,11 +1,14 @@
-%parse-param {dice_t dice}
+%define api.pure full
+
+%parse-param {void *scanner} {dice_t dice}
+%lex-param {void *scanner}
 
 %{
 #include "dice.h"
 
-extern int yylex(void);
+extern int yylex(void *lval, void *scanner);
 
-void yyerror(dice_t dice, char const *err)
+void yyerror(void *scanner, dice_t dice, char const *err)
 {
 }
 

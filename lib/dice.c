@@ -8,11 +8,17 @@
 #include <bsd/stdlib.h>
 #endif
 
-extern void *yy_scan_string(char const *s);
-extern void yy_delete_buffer(void *b);
+extern int yylex_init(void **state);
+extern int yylex_destroy(void *state);
+extern void yylex(void *state);
+extern void yy_switch_to_buffer(void *buffer, void *scanner);
+extern void *yy_scan_string(char const *s, void *scanner);
+extern void yy_delete_buffer(void *b, void *scanner);
 
 struct dice_
 {
+    int consumed;
+
     uint32_t amount;
     uint32_t sides;
 
@@ -77,6 +83,7 @@ dice_t dice_simple(uint32_t amount, uint32_t sides)
 
 dice_t dice_parse(char const *s)
 {
+    void *scanner = NULL;
     dice_t d = NULL;
     void *buffer = NULL;
     int ret = 0;
@@ -86,9 +93,14 @@ dice_t dice_parse(char const *s)
         return NULL;
     }
 
-    buffer = yy_scan_string(s);
-    ret = yyparse(d);
-    yy_delete_buffer(buffer);
+    yylex_init(&scanner);
+    buffer = yy_scan_string(s, scanner);
+    yy_switch_to_buffer(buffer, scanner);
+
+    ret = yyparse(scanner, d);
+
+    yy_delete_buffer(buffer, scanner);
+    yylex_destroy(scanner);
 
     if (ret) {
         dice_free(d);
@@ -175,4 +187,9 @@ bool dice_evaluate(dice_t d, dice_result_t **res, size_t *reslen)
     *res = r;
 
     return true;
+}
+
+void dice_update_consumned(dice_t d, int offset)
+{
+    d->consumed += offset;
 }
