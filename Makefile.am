@@ -5,7 +5,8 @@ lib_LTLIBRARIES =	libdice.la
 libdice_la_SOURCES =	lib/dice_lexer.l \
 			lib/dice_parse.y \
 			lib/dice.h \
-			lib/dice.c
+			lib/dice.c \
+			lib/diceexpr.c
 
 AM_CFLAGS =		-Ilib
 

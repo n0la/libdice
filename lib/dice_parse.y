@@ -10,6 +10,7 @@ extern int yylex(void *lval, void *scanner);
 
 void yyerror(void *scanner, dice_t dice, char const *err)
 {
+    dice_set(dice, DICEOPTION_ERROR, err);
 }
 
 int yywrap(void)
@@ -33,10 +34,14 @@ dice:           TOK_INTEGER TOK_DICESEP TOK_INTEGER
                 {
                     dice_set(dice, DICEOPTION_AMOUNT, $1);
                     dice_set(dice, DICEOPTION_SIDES, $3);
+
+                    YYACCEPT;
                 }
         |       TOK_DICESEP TOK_INTEGER
                 {
                     dice_set(dice, DICEOPTION_AMOUNT, 1);
                     dice_set(dice, DICEOPTION_SIDES, $2);
+
+                    YYACCEPT;
                 }
         ;

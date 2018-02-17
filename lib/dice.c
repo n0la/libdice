@@ -8,7 +8,7 @@
 #include <bsd/stdlib.h>
 #endif
 
-extern int yylex_init(void **state);
+extern int yylex_init_extra(void *extra, void **state);
 extern int yylex_destroy(void *state);
 extern void yylex(void *state);
 extern void yy_switch_to_buffer(void *buffer, void *scanner);
@@ -22,7 +22,7 @@ struct dice_
     uint32_t amount;
     uint32_t sides;
 
-    char *errmsg;
+    char *error;
 };
 
 static dice_t dice_new(void)
@@ -42,6 +42,7 @@ void dice_free(dice_t t)
         return;
     }
 
+    free(t->error);
     free(t);
 }
 
@@ -93,7 +94,7 @@ dice_t dice_parse(char const *s)
         return NULL;
     }
 
-    yylex_init(&scanner);
+    yylex_init_extra(d, &scanner);
     buffer = yy_scan_string(s, scanner);
     yy_switch_to_buffer(buffer, scanner);
 
@@ -118,6 +119,12 @@ bool dice_set(dice_t d, dice_option_t opt, ...)
     switch (opt) {
     case DICEOPTION_AMOUNT: d->amount = va_arg(lst, uint32_t); break;
     case DICEOPTION_SIDES: d->sides = va_arg(lst, uint32_t); break;
+    case DICEOPTION_ERROR:
+    {
+        char const *err = va_arg(lst, char const *);
+        free(d->error);
+        d->error = strdup(err);
+    } break;
 
     default: return false;
     }
@@ -142,6 +149,12 @@ bool dice_get(dice_t d, dice_option_t opt, ...)
     {
         uint32_t *ptr = va_arg(lst, uint32_t*);
         *ptr = d->sides;
+    } break;
+
+    case DICEOPTION_ERROR:
+    {
+        char **ptr = va_arg(lst, char **);
+        *ptr = d->error;
     } break;
 
     default: return false;
@@ -189,7 +202,16 @@ bool dice_evaluate(dice_t d, dice_result_t **res, size_t *reslen)
     return true;
 }
 
-void dice_update_consumned(dice_t d, int offset)
+void dice_update_consumed(dice_t d, int offset)
 {
     d->consumed += offset;
+}
+
+int dice_consumed(dice_t d)
+{
+    if (d == NULL) {
+        return 0;
+    }
+
+    return d->consumed;
 }

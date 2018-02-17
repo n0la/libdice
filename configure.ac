@@ -18,4 +18,8 @@ AC_CHECK_FUNCS([arc4random arc4random_uniform strlcat strlcpy],,
 
 AC_CONFIG_FILES([Makefile tests/Makefile])
 
+AC_SEARCH_LIBS([cos], [m], [], [
+  AC_MSG_ERROR([unable to find the cos() function])
+])
+
 AC_OUTPUT
