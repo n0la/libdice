@@ -1,0 +1,6 @@
+The tiny expression library is released under the zlib licence. Please see
+LICENSE.tinyexpr file for copyrights and details
+
+The rest of the source code of libdice is released under the LGPL v3. Please
+see COPYING.LESSER file for details. Also see the appropriate source files
+for specific copyright notices.
