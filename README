@@ -1,3 +1,5 @@
+** The first version (0.1) is not yet released. API subject to change! **
+
 libdice is a small library used for parsing dice expression and rolling dice.
 It is mainly suitable for small projects that wish to support pen and paper
 style dice syntax.
