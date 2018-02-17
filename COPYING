@@ -1,3 +1,12 @@
+The tinyexpr library has been released under the zlib licence (see
+LICENSE.tinyexpr for details). All modifications to the tinyexpr
+library in this project are also licenced under the zlib license.
+The following licence only applies to additional source files found
+in the repository.
+
+---
+
+
                    GNU LESSER GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
