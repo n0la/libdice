@@ -1,5 +1,6 @@
 * Release 0.1
-** TODO README.md
+** DONE README.md
+   - State "DONE"       from "TODO"       [2018-02-21 Wed 12:12]
    - Note taken on [2018-02-17 Sat 11:02] \\
      Write a proper README.md for the github folks.
 ** TODO MAN page
