@@ -135,5 +135,8 @@ dice_expression_free(e);
 ## Copyright
 
 ``libdice`` is dual licenced. The ``tinyexpr`` is licenced under the zlib
-licence (see COPYING.tinyexpr), and the rest of ``libdice`` is available under
-the LGPLv3.
+licence (see ``LICENSE.tinyexpr``), and the rest of ``libdice`` is available
+under the LGPLv3.
+
+``tinyexpr`` Copyright (C) 2015, 2016 Lewis Van Winkle
+``libdice`` Copyright (C) 2018 Florian Stinglmayr
