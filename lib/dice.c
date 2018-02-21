@@ -44,7 +44,7 @@ struct dice_
     char *error;
 };
 
-static dice_t dice_new(void)
+dice_t dice_new(void)
 {
     dice_t tmp = calloc(1, sizeof(struct dice_));
 
@@ -101,16 +101,14 @@ dice_t dice_simple(uint32_t amount, uint32_t sides)
     return tmp;
 }
 
-dice_t dice_parse(char const *s)
+bool dice_parse(dice_t d, char const *s)
 {
     void *scanner = NULL;
-    dice_t d = NULL;
     void *buffer = NULL;
     int ret = 0;
 
-    d = dice_new();
-    if (d == NULL) {
-        return NULL;
+    if (d == NULL || s == NULL) {
+        return false;
     }
 
     yylex_init_extra(d, &scanner);
@@ -123,11 +121,10 @@ dice_t dice_parse(char const *s)
     yylex_destroy(scanner);
 
     if (ret) {
-        dice_free(d);
-        return NULL;
+        return false;
     }
 
-    return d;
+    return true;
 }
 
 bool dice_set(dice_t d, dice_option_t opt, ...)

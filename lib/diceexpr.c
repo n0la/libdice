@@ -279,13 +279,15 @@ void next_token(state *s) {
         if (isdigit(s->next[0]) || s->next[0] == '.' || s->next[0] == 'd') {
             /* first try reading a dice expression, if that fails, we go
                back to trying a number instead */
-            dice_t d = dice_parse(s->next);
-            if (d != NULL) {
+            dice_t d = dice_new();
+
+            if (dice_parse(d, s->next)) {
                 int consumed = dice_consumed(d);
                 s->type = TOK_DICE;
                 s->dice = d;
                 s->next += consumed;
-            } else if (d == NULL) {
+            } else {
+                dice_free(d);
                 /* Try reading a number. */
                 s->value = strtod(s->next, (char**)&s->next);
                 s->type = TOK_NUMBER;

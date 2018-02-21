@@ -44,9 +44,10 @@ typedef enum {
 void dice_result_free(dice_result_t *r);
 void dice_result_freev(dice_result_t *r, size_t len);
 
+dice_t dice_new(void);
 void dice_free(dice_t t);
 dice_t dice_simple(uint32_t amount, uint32_t sides);
-dice_t dice_parse(char const *s);
+bool dice_parse(dice_t d, char const *s);
 
 bool dice_set(dice_t d, dice_option_t opt, ...);
 bool dice_get(dice_t d, dice_option_t opt, ...);

@@ -31,22 +31,26 @@ int dice_consumed(dice_t d);
 
 static void test_dice_parse_none(void **data)
 {
-    dice_t d = dice_parse("");
-    assert_null(d);
+    dice_t d = dice_new();
+
+    assert_false(dice_parse(d, ""));
+    dice_free(d);
 }
 
 static void test_dice_parse_amount(void **data)
 {
-    dice_t d = dice_parse("3d");
-    assert_null(d);
+    dice_t d = dice_new();
+
+    assert_false(dice_parse(d, "3d"));
+    dice_free(d);
 }
 
 static void test_dice_parse_amount_sides(void **data)
 {
-    dice_t d = dice_parse("5d10");
+    dice_t d = dice_new();
     int i = 0;
 
-    assert_non_null(d);
+    assert_true(dice_parse(d, "5d10"));
 
     assert_true(dice_get(d, DICEOPTION_AMOUNT, &i));
     assert_int_equal(i, 5);
@@ -61,10 +65,10 @@ static void test_dice_parse_amount_sides(void **data)
 
 static void test_dice_parse_sides(void **data)
 {
-    dice_t d = dice_parse("d12");
+    dice_t d = dice_new();
     int i = 0;
 
-    assert_non_null(d);
+    assert_true(dice_parse(d, "d12"));
 
     assert_true(dice_get(d, DICEOPTION_SIDES, &i));
     assert_int_equal(i, 12);
@@ -77,10 +81,10 @@ static void test_dice_parse_sides(void **data)
 static void test_dice_parse_big(void **data)
 {
     char const *dice_str = "1000d120000";
-    dice_t d = dice_parse(dice_str);
+    dice_t d = dice_new();
     int i = 0;
 
-    assert_non_null(d);
+    assert_true(dice_parse(d, dice_str));
 
     assert_true(dice_get(d, DICEOPTION_SIDES, &i));
     assert_int_equal(i, 120000);
