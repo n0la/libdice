@@ -10,4 +10,4 @@ PATH=$PATH:/usr/local/bin
 aclocal $AC_SEARCH_OPTS
 autoconf
 autoheader
-automake --add-missing
+automake --copy --add-missing
