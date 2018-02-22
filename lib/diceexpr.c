@@ -729,7 +729,7 @@ void dice_expression_free(dice_expression_t e)
     free(e);
 }
 
-dice_expression_t dice_expression_parse(char const *n, int *error)
+dice_expression_t dice_expression_new(void)
 {
     dice_expression_t e = NULL;
 
@@ -738,16 +738,27 @@ dice_expression_t dice_expression_parse(char const *n, int *error)
         return NULL;
     }
 
-    e->expr = te_compile(n, 0, 0, error);
-    if (e->expr == NULL) {
-        free(e);
-        return NULL;
-    }
+    e->expr = NULL;
 
     return e;
 }
 
-bool dice_expression_evaluate(dice_expression_t e, int64_t *result)
+bool dice_expression_parse(dice_expression_t e, char const *n, int *error)
+{
+    if (e->expr != NULL) {
+        te_free(e->expr);
+        e->expr = NULL;
+    }
+
+    e->expr = te_compile(n, 0, 0, error);
+    if (e->expr == NULL) {
+        return false;
+    }
+
+    return true;
+}
+
+bool dice_expression_roll(dice_expression_t e, int64_t *result)
 {
     double val;
     if (e == NULL || e->expr == NULL) {

@@ -109,20 +109,24 @@ dice_free(d20);
 
 The expression API supports multiple die within one mathematical expression.
 Expressions are parsed using [tinyexpr](https://github.com/codeplea/tinyexpr)
-library.
+library. The API works with objects of the type ``dice_expression_t``, which
+are allocated using ``dice_expression_new``, and must be freed by using
+``dice_expression_free``. Expressions in the format of a C string, can be
+parsed by using ``dice_expression_parse``, and a result can be evaluated
+by using ``dice_expression_roll``.
 
 ```C
 int error = 0;
 char const *expr = "1d20+8+4+3-1";
-dice_expression_t e = dice_expression_parse(expr, &err);
+dice_expression_t e = dice_expression_new();
 int64_t result = 0;
 
-if (e == NULL) {
+if (!dice_expression_parse(e, expr, &err)) {
     fprintf(stderr, "error in expression: \"%s\": at %d\n", expr, err);
     goto fail;
 }
 
-if (!dice_expression_evaluate(e, &result)) {
+if (!dice_expression_roll(e, &result)) {
     goto fail;
 }
 

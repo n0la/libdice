@@ -27,28 +27,28 @@
 
 static void test_expr_parse_none(void **arg)
 {
-    dice_expression_t e = NULL;
+    dice_expression_t e = dice_expression_new();
     int error = 0;
 
-    e = dice_expression_parse("", &error);
-
-    assert_null(e);
+    assert_non_null(e);
+    assert_false(dice_expression_parse(e, "", &error));
     assert_int_equal(error, 1);
+
+    dice_expression_free(e);
 }
 
 static void test_expr_parse_simple(void **arg)
 {
-    dice_expression_t e = NULL;
+    dice_expression_t e = dice_expression_new();
     int error = 0, i = 0;
     int64_t result = 0;
 
-    e = dice_expression_parse("4d6", &error);
-
     assert_non_null(e);
+    assert_true(dice_expression_parse(e, "4d6", &error));
     assert_int_equal(error, 0);
 
     for (i = 0; i < 100000; i++) {
-        assert_true(dice_expression_evaluate(e, &result));
+        assert_true(dice_expression_roll(e, &result));
         assert_true(result >= 4 && result <= 32);
     }
 
@@ -57,17 +57,16 @@ static void test_expr_parse_simple(void **arg)
 
 static void test_expr_parse_modifier(void **arg)
 {
-    dice_expression_t e = NULL;
+    dice_expression_t e = dice_expression_new();
     int error = 0, i = 0;
     int64_t result = 0;
 
-    e = dice_expression_parse("1d20+3+5", &error);
-
     assert_non_null(e);
+    assert_true(dice_expression_parse(e, "1d20+3+5", &error));
     assert_int_equal(error, 0);
 
     for (i = 0; i < 100000; i++) {
-        assert_true(dice_expression_evaluate(e, &result));
+        assert_true(dice_expression_roll(e, &result));
         assert_true(result >= 9 && result <= 28);
     }
 
@@ -76,17 +75,16 @@ static void test_expr_parse_modifier(void **arg)
 
 static void test_expr_parse_complex(void **arg)
 {
-    dice_expression_t e = NULL;
+    dice_expression_t e = dice_expression_new();
     int error = 0, i = 0;
     int64_t result = 0;
 
-    e = dice_expression_parse("1d8+(3+5)+1d6+5d4", &error);
-
     assert_non_null(e);
+    assert_true(dice_expression_parse(e, "1d8+(3+5)+1d6+5d4", &error));
     assert_int_equal(error, 0);
 
     for (i = 0; i < 100000; i++) {
-        assert_true(dice_expression_evaluate(e, &result));
+        assert_true(dice_expression_roll(e, &result));
         assert_true(result >= 15 && result <= 42);
     }
 

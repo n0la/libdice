@@ -55,9 +55,11 @@ bool dice_get(dice_t d, dice_option_t opt, ...);
 int64_t dice_roll(dice_t d);
 bool dice_evaluate(dice_t d, dice_result_t **res, size_t *reslen);
 
-dice_expression_t dice_expression_parse(char const *s, int *error);
+dice_expression_t dice_expression_new(void);
 void dice_expression_free(dice_expression_t e);
-bool dice_expression_evaluate(dice_expression_t e, int64_t *result);
+
+bool dice_expression_parse(dice_expression_t d, char const *s, int *error);
+bool dice_expression_roll(dice_expression_t e, int64_t *result);
 bool dice_expression_print(dice_expression_t e);
 
 #endif
