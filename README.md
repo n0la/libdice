@@ -25,7 +25,7 @@ supports variable amount and variable sides at the moment:
 
 ``libdice`` requires:
 
-* libbsd
+* libbsd (on systems without a native ``arc4random_uniform``)
 * bison
 * flex
 * cmocka >= 1.0.1
