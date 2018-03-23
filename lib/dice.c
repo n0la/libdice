@@ -154,6 +154,15 @@ bool dice_set(dice_t d, dice_option_t opt, ...)
     return true;
 }
 
+char const * dice_errstr(dice_t d)
+{
+    if (d == NULL || d->error == NULL) {
+        return NULL;
+    }
+
+    return d->error;
+}
+
 bool dice_get(dice_t d, dice_option_t opt, ...)
 {
     va_list lst;

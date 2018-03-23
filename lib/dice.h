@@ -101,6 +101,12 @@ bool dice_set(dice_t d, dice_option_t opt, ...);
  */
 bool dice_get(dice_t d, dice_option_t opt, ...);
 
+/* Returns the error string that was encountered while parsing. This is
+ * the same as calling dice_get() with the DICEOPTION_ERROR option set.
+ * It is meant as convenience function.
+ */
+char const * dice_errstr(dice_t d);
+
 /* Rolls the given dice object once, and returns the result.
  */
 int64_t dice_roll(dice_t d);
