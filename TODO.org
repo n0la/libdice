@@ -18,8 +18,10 @@
      No direct reply to my mail, but he starred github repo.
    - Note taken on [2018-02-17 Sat 11:30] \\
      Verify that dual licencing has been done properly by consult
-     Lewis Van Winkle the author of tinyexpr.
-** TODO Remove dependency on libbsd
+     Lewis Van Winkle the author of tinyexpr.*
+** DONE Remove dependency on libbsd
+   - Note taken on [2018-03-23 Fri 17:59] \\
+     Ignored for the time being
    - Note taken on [2018-02-17 Sat 11:05] \\
      arc4random_uniform() should be moved into the source. On BSD we just use
      the library function.
