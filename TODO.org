@@ -8,7 +8,9 @@
      Ignored. the header file has been documented instead.
    - Note taken on [2018-02-17 Sat 11:02] \\
      For everyone else, write a proper manpage explaining the API
-** TODO Fudge dice
+** DONE Fudge dice
+   - Note taken on [2018-03-23 Fri 17:56] \\
+     Done.
    - Note taken on [2018-02-17 Sat 11:02] \\
      The syntax should be XdF and the results should be [-1, -1, 0, 0, +1, +1].
 ** DONE verify dual licencing with Lews Van Winkle
