@@ -22,6 +22,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "config.h"
 
@@ -39,6 +40,7 @@ extern void yy_delete_buffer(void *b, void *scanner);
 struct dice_
 {
     int consumed;
+    bool fudge;
 
     uint32_t amount;
     uint32_t sides;
@@ -137,6 +139,7 @@ bool dice_set(dice_t d, dice_option_t opt, ...)
     switch (opt) {
     case DICEOPTION_AMOUNT: d->amount = va_arg(lst, uint32_t); break;
     case DICEOPTION_SIDES: d->sides = va_arg(lst, uint32_t); break;
+    case DICEOPTION_FUDGE: d->fudge = va_arg(lst, uint32_t); break;
     case DICEOPTION_ERROR:
     {
         char const *err = va_arg(lst, char const *);
@@ -175,11 +178,24 @@ bool dice_get(dice_t d, dice_option_t opt, ...)
         *ptr = d->error;
     } break;
 
+    case DICEOPTION_FUDGE:
+    {
+        bool *ptr = va_arg(lst, uint32_t*);
+        *ptr = d->fudge;
+    } break;
+
     default: return false;
     }
     va_end(lst);
 
     return true;
+}
+
+static int dice_roll_fudge(void)
+{
+    static int results[6] = {-1, -1, 0, 0, +1, +1};
+    int idx = arc4random_uniform(sizeof(results)/sizeof(int)) + 1;
+    return results[idx];
 }
 
 int64_t dice_roll(dice_t d)
@@ -188,7 +204,11 @@ int64_t dice_roll(dice_t d)
     uint32_t i = 0;
 
     for (i = 0; i < d->amount; i++) {
-        result += arc4random_uniform(d->sides) + 1;
+        if (!d->fudge) {
+            result += arc4random_uniform(d->sides) + 1;
+        } else {
+            result += dice_roll_fudge();
+        }
     }
 
     return result;
@@ -211,7 +231,11 @@ bool dice_evaluate(dice_t d, dice_result_t **res, size_t *reslen)
     }
 
     for (i = 0; i < d->amount; i++) {
-        r[i].result = arc4random_uniform(d->sides) + 1;
+        if (!d->fudge) {
+            r[i].result = arc4random_uniform(d->sides) + 1;
+        } else {
+            r[i].result = dice_roll_fudge();
+        }
     }
 
     *reslen = len;

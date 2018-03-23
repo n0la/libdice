@@ -22,4 +22,11 @@ extern void dice_update_consumed(dice_t d, int off);
     dice_update_consumed(d, yyleng);
     return TOK_DICESEP;
 }
+
+[fF] {
+    dice_t d = yyget_extra(yyscanner);
+    dice_update_consumed(d, yyleng);
+    return TOK_FUDGE;
+}
+
 %%

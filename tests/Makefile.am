@@ -1,6 +1,7 @@
 check_PROGRAMS =	test_dice_simple_roll \
 			test_dice_parse \
 			test_dice_evaluate \
+			test_dice_fudge \
 			test_expr_parse
 
 AM_CFLAGS =	-I../lib ${CMOCKA_CFLAGS}

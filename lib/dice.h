@@ -53,6 +53,12 @@ typedef enum {
      * set: char const *
      */
     DICEOPTION_ERROR,
+
+    /* Whether the dice has no amount but is a fudge dice instead.
+     * get: uint32_t *
+     * set: uint32_t
+     */
+    DICEOPTION_FUDGE,
 } dice_option_t;
 
 /* Creates a new dice object that is not initialised yet.
