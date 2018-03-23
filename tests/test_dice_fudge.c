@@ -28,7 +28,7 @@
 static void test_dice_fudge_construct(void **data)
 {
     dice_t d = dice_new();
-    bool fudge = true;
+    uint32_t fudge = true;
 
     dice_get(d, DICEOPTION_FUDGE, &fudge);
     assert_false(fudge);
@@ -39,9 +39,9 @@ static void test_dice_fudge_construct(void **data)
 static void test_dice_fudge_set(void **data)
 {
     dice_t d = dice_new();
-    bool fudge = false;
+    uint32_t fudge = false;
 
-    dice_set(d, DICEOPTION_FUDGE, true);
+    dice_set(d, DICEOPTION_FUDGE, 1L);
     dice_get(d, DICEOPTION_FUDGE, &fudge);
 
     assert_true(fudge);
@@ -83,7 +83,7 @@ static void test_dice_fudge_roll_more(void **data)
 static void test_dice_fudge_parse1(void **data)
 {
     dice_t d = dice_new();
-    int amount = 0, fudge = false;
+    uint32_t amount = 0, fudge = false;
 
     assert_true(dice_parse(d, "4dF"));
 
@@ -99,7 +99,7 @@ static void test_dice_fudge_parse1(void **data)
 static void test_dice_fudge_parse2(void **data)
 {
     dice_t d = dice_new();
-    int amount = 0, fudge = false;
+    uint32_t amount = 0, fudge = false;
 
     assert_true(dice_parse(d, "df"));
 
