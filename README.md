@@ -1,7 +1,5 @@
 [![Build Status](https://travis-ci.org/n0la/libdice.svg?branch=master)](https://travis-ci.org/n0la/libdice)
 
-**Warning: The API is not yet stable**
-
 # libdice
 
 ``libdice`` is a small C library for rolling P&P style dice and for
