@@ -51,7 +51,7 @@ static void test_dice_fudge_set(void **data)
 static void test_dice_fudge_roll_one(void **data)
 {
     dice_t d = dice_new();
-    int result = 0, i = 0;
+    int64_t result = 0, i = 0;
 
     dice_set(d, DICEOPTION_FUDGE, true);
     dice_set(d, DICEOPTION_AMOUNT, 1L);
@@ -67,7 +67,7 @@ static void test_dice_fudge_roll_one(void **data)
 static void test_dice_fudge_roll_more(void **data)
 {
     dice_t d = dice_new();
-    int result = 0, i = 0;
+    int64_t result = 0, i = 0;
 
     dice_set(d, DICEOPTION_FUDGE, true);
     dice_set(d, DICEOPTION_AMOUNT, 6L);
