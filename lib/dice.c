@@ -23,6 +23,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "config.h"
+
 #ifndef HAVE_ARC4RANDOM_UNIFORM
 #include <bsd/stdlib.h>
 #endif
