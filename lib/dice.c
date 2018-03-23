@@ -180,7 +180,7 @@ bool dice_get(dice_t d, dice_option_t opt, ...)
 
     case DICEOPTION_FUDGE:
     {
-        bool *ptr = va_arg(lst, uint32_t*);
+        uint32_t *ptr = va_arg(lst, uint32_t*);
         *ptr = d->fudge;
     } break;
 
