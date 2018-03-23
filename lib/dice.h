@@ -36,8 +36,22 @@ typedef struct {
 } dice_result_t;
 
 typedef enum {
+    /* The amount of dice to roll.
+     * get: uint32_t
+     * set: uint32_t *
+     */
     DICEOPTION_AMOUNT = 0,
+
+    /* The sides the dice have.
+     * get: uint32_t
+     * set: uint32_t *
+     */
     DICEOPTION_SIDES,
+
+    /* The error that as occoured when parsing dice strings.
+     * get: char **
+     * set: char const *
+     */
     DICEOPTION_ERROR,
 } dice_option_t;
 
