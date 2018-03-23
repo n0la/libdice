@@ -16,10 +16,11 @@ evaluating dice expressions.
 ## Dice syntax
 
 Currently the supported syntax in ``libdice`` is rather limited. It only
-supports variable amount and variable sides at the moment:
+supports variable amount, variable sides and fudge dice at the moment:
 
 * Roll four six sided dices: ``4d6``
 * Roll one twenty sided die: ``d20``
+* Roll six fudge dice: ``6dF``
 
 ## Build
 
