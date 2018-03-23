@@ -194,7 +194,7 @@ bool dice_get(dice_t d, dice_option_t opt, ...)
 static int dice_roll_fudge(void)
 {
     static int results[6] = {-1, -1, 0, 0, +1, +1};
-    int idx = arc4random_uniform(sizeof(results)/sizeof(int)) + 1;
+    int idx = arc4random_uniform(sizeof(results)/sizeof(int));
     return results[idx];
 }
 
