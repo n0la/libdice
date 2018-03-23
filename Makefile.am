@@ -14,4 +14,6 @@ AM_CFLAGS =		-Ilib
 
 libdice_la_LIBADD =	${BSD_LIBS}
 
+pkgconfig_DATA =	libdice.pc
+
 SUBDIRS	=		. tests
