@@ -30,12 +30,12 @@
 #include <bsd/stdlib.h>
 #endif
 
-extern int yylex_init_extra(void *extra, void **state);
-extern int yylex_destroy(void *state);
-extern void yylex(void *state);
-extern void yy_switch_to_buffer(void *buffer, void *scanner);
-extern void *yy_scan_string(char const *s, void *scanner);
-extern void yy_delete_buffer(void *b, void *scanner);
+extern int dplex_init_extra(void *extra, void **state);
+extern int dplex_destroy(void *state);
+extern void dplex(void *state);
+extern void dp_switch_to_buffer(void *buffer, void *scanner);
+extern void *dp_scan_string(char const *s, void *scanner);
+extern void dp_delete_buffer(void *b, void *scanner);
 
 struct dice_
 {
@@ -115,14 +115,14 @@ bool dice_parse(dice_t d, char const *s)
         return false;
     }
 
-    yylex_init_extra(d, &scanner);
-    buffer = yy_scan_string(s, scanner);
-    yy_switch_to_buffer(buffer, scanner);
+    dplex_init_extra(d, &scanner);
+    buffer = dp_scan_string(s, scanner);
+    dp_switch_to_buffer(buffer, scanner);
 
-    ret = yyparse(scanner, d);
+    ret = dpparse(scanner, d);
 
-    yy_delete_buffer(buffer, scanner);
-    yylex_destroy(scanner);
+    dp_delete_buffer(buffer, scanner);
+    dplex_destroy(scanner);
 
     if (ret) {
         return false;
