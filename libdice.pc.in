@@ -5,7 +5,7 @@ includedir=@includedir@
 
 Name: libdice
 Description: dice rolling and math expression library
-Version: 0.1
+Version: @VERSION@
 Requires:
 Conflicts:
 Cflags: -I${includedir}
