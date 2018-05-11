@@ -1,4 +1,5 @@
 %define api.pure full
+%define api.prefix {dp}
 
 %parse-param {void *scanner} {dice_t dice}
 %lex-param {void *scanner}
@@ -6,14 +7,14 @@
 %{
 #include "dice.h"
 
-extern int yylex(void *lval, void *scanner);
+extern int dplex(void *lval, void *scanner);
 
-void yyerror(void *scanner, dice_t dice, char const *err)
+void dperror(void *scanner, dice_t dice, char const *err)
 {
     dice_set(dice, DICEOPTION_ERROR, err);
 }
 
-int yywrap(void)
+int dpwrap(void)
 {
     return 1;
 }

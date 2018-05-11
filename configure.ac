@@ -1,5 +1,5 @@
 AC_PREREQ([2.69])
-AC_INIT([libdice], [0.1], [florian@n0la.org])
+AC_INIT([libdice], [0.2], [florian@n0la.org])
 AM_INIT_AUTOMAKE([subdir-objects])
 LT_INIT()
 AC_CONFIG_HEADERS([config.h])
@@ -18,9 +18,8 @@ AC_CHECK_FUNCS([arc4random_uniform],,
 
 AC_CONFIG_FILES([Makefile tests/Makefile])
 
-AC_SEARCH_LIBS([cos], [m], [], [
-  AC_MSG_ERROR([unable to find the cos() function])
-])
+AC_SEARCH_LIBS([sqrt], [m])
+AC_SEARCH_LIBS([cos], [m])
 
 PKG_INSTALLDIR
 AC_CONFIG_FILES([libdice.pc])

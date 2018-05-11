@@ -1,7 +1,9 @@
+%option prefix="dp"
 %option bison-bridge
 %option reentrant
 
 %{
+#define YYSTYPE DPSTYPE
 #include "dice.h"
 #include "dice_parse.h"
 
