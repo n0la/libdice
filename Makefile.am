@@ -7,8 +7,7 @@ libdice_la_SOURCES =	lib/dice_lexer.l \
 			lib/dice_parse.y \
 			lib/dice.h \
 			lib/dice.c \
-			lib/diceexpr.c \
-			lex.dp.c
+			lib/diceexpr.c
 
 include_HEADERS =	lib/dice.h
 

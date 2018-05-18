@@ -1,6 +1,6 @@
-%option prefix="dp"
 %option bison-bridge
 %option reentrant
+%option outfile="../lib/dice_lexer.c"
 
 %{
 #define YYSTYPE DPSTYPE
