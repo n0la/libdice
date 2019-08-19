@@ -28,12 +28,15 @@ supports variable amount, variable sides and fudge dice at the moment:
 * bison
 * flex
 * cmocka >= 1.0.1
+* cmake
 
 To build ``libdice`` run:
 
 ```shell
-$ ./configure --prefix="/usr"
+$ mkdir build; cd build
+$ cmake .. -DCMAKE_INSTALL_PREFIX=/usr
 $ make
+$ make test
 $ sudo make install
 ```
 
