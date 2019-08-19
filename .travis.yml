@@ -25,5 +25,6 @@ install:
   - sudo dpkg -i pkg-config_0.29.1-0ubuntu2_amd64.deb
 
 script:
-  - ./build.sh
-  - make check
+  - mkdir build; cd build
+  - make
+  - make test
